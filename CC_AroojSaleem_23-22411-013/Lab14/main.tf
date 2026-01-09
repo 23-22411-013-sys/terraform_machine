@@ -5,6 +5,7 @@ provider "aws" {
 
 resource "aws_vpc" "myapp_vpc" {
   cidr_block = var.vpc_cidr_block
+  enable_dns_hostnames = true
   tags = {
      Name = "${var.env_prefix}-vpc"
   }
@@ -30,7 +31,8 @@ module "myapp-webserver" {
   subnet_id = module.myapp-subnet.subnet.id
   
   # Loop count
-  count             = 2
+  count             = 1
   # Use count.index to differentiate instances
   instance_suffix   = count.index
 }
+
